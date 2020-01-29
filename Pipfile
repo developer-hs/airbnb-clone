@@ -4,9 +4,18 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
+flake8 = "*"
+black = "*"
+autopep8 = "*"
 
 [packages]
 django = "==2.2.5"
+pillow = "*"
+django-countries = "*"
+django-seed = "*"
 
 [requires]
 python_version = "3.8"
+
+[pipenv]
+allow_prereleases = true

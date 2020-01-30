@@ -15,4 +15,8 @@ class ConversationAdmin(admin.ModelAdmin):
 
     """ Conversation Admin Difinition """
 
+    fieldsets = (("Participants", {"fields": ("participants",),}),)
+
+    filter_horizontal = ("participants",)
+
     list_display = ("__str__", "count_messages", "count_participants")

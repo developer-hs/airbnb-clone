@@ -111,6 +111,7 @@ class RoomAdmin(admin.ModelAdmin):
 
     # 해당하는 column name 변경
     # count_amenities.short_description = "hello sexy!"
+    count_photos.short_description = "Photo_Count"
 
 
 @admin.register(models.Photo)

@@ -17,7 +17,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         # print(args, options)
         print(options)
-        number = options.get("number", 1)
+        number = options.get("number")
         seeder = Seed.seeder()
         all_users = user_models.User.objects.all()
         room_types = room_models.RoomType.objects.all()

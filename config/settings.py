@@ -73,7 +73,7 @@ ROOT_URLCONF = "config.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [os.path.join(BASE_DIR, "templates")],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -134,7 +134,6 @@ STATIC_URL = "/static/"
 
 # User 커스텀
 AUTH_USER_MODEL = "users.User"
-
 
 # 파일 저장위치
 MEDIA_ROOT = os.path.join(BASE_DIR, "uploads")

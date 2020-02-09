@@ -23,7 +23,7 @@ https://docs.djangoproject.com/en/3.0/ref/paginator/
   
   {% if page_obj.has_previous %}
   <a href="?page={{page_obj.previous_page_number}}">Previous </a>
-  {% endif %} 
+  {% endif %}
 
   Page : {{ page_obj.number }} of {{ page_obj.paginator.num_pages }} 
 

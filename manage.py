@@ -2,6 +2,10 @@
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
+import dotenv
+
+# https://github.com/jpadilla/django-dotenv
+# ↑ django-dotenv
 
 
 def main():
@@ -18,4 +22,5 @@ def main():
 
 
 if __name__ == "__main__":
+    dotenv.read_dotenv()
     main()

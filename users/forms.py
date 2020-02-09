@@ -1,7 +1,8 @@
 from django import forms
 from . import models
 
-
+# https://docs.djangoproject.com/en/3.0/topics/forms/modelforms/
+# ↑ Model Form
 class LoginForm(forms.Form):
 
     email = forms.EmailField()
@@ -26,20 +27,20 @@ class LoginForm(forms.Form):
 # self.add_error 를 통해 각자 error 를 띄어주어야한다.
 
 
-class SignUpForm(forms.Form):
-    first_name = forms.CharField(max_length=80)
-    last_name = forms.CharField(max_length=80)
-    email = forms.EmailField()
+class SignUpForm(forms.ModelForm):
+    # ModelForm 에서는 clean , save method 를 지원
+    class Meta:
+        model = models.User
+        fields = (
+            "first_name",
+            "last_name",
+            "email",
+        )
+        labels = {"email": ("Email")}
+
+    # password 암호화를 위해 따로 생성
     password = forms.CharField(widget=forms.PasswordInput)
     password1 = forms.CharField(widget=forms.PasswordInput, label="Confirm Password")
-
-    def clean_email(self):
-        email = self.cleaned_data.get("email")
-        try:
-            models.User.objects.get(email=email)
-            raise forms.ValidationError("User already exists with email")
-        except models.User.DoesNotExist:
-            return email
 
     def clean_password1(self):
         password = self.cleaned_data.get("password")
@@ -50,14 +51,15 @@ class SignUpForm(forms.Form):
         else:
             return password
 
-    def save(self):
-        first_name = self.cleaned_data.get("first_name")
-        last_name = self.cleaned_data.get("last_name")
+    def save(self, *args, **kwargs):
+        user = super().save(commit=False)
+        # commit=False : object 가 생성되지만 database 에 적용시키지않음
         email = self.cleaned_data.get("email")
         password = self.cleaned_data.get("password")
-        # 비밀번호를 암호화 하기위해 create_user 를 사용 하여 user 생성
-        # create_user 는 username , email , password 를 필요로함
-        user = models.User.objects.create_user(email, email, password)
-        user.first_name = first_name
-        user.last_name = last_name
+        user.username = email
+        # set_password : password 를 암호화 시켜줌
+        # https://docs.djangoproject.com/en/3.0/topics/auth/default/
+        # ↑ user
+        user.set_password(password)
         user.save()
+

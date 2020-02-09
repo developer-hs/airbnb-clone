@@ -139,3 +139,17 @@ AUTH_USER_MODEL = "users.User"
 MEDIA_ROOT = os.path.join(BASE_DIR, "uploads")
 # 파일 URL
 MEDIA_URL = "/media/"
+
+
+# Email Configuration
+# https://docs.djangoproject.com/en/3.0/topics/email/
+# ↑ django email
+# https://github.com/jpadilla/django-dotenv
+# ↑ django-dotenv
+EMAIL_HOST = "smtp.mailgun.org"
+EMAIL_PROT = "587"
+EMAIL_HOST_USER = os.environ.get("MAILGUN_USERNAME")
+EMAIL_HOST_PASSWORD = os.environ.get("MAILGUN_PASSWORD")
+
+
+EMAIL_FROM = "sexy-guy@sandbox3462f99ac5814b99ba98e1b70b54aac8.mailgun.org"

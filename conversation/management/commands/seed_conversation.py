@@ -28,7 +28,7 @@ class Command(BaseCommand):
         users = user_models.User.objects.all()
         for pk in cleaned:
             conversation = conversation_models.Conversation.objects.get(pk=pk)
-            conversation.participants.add(users[1])  # admin 추가
+            conversation.participants.add(users[0])  # admin 추가
             for i in range(0, random.randint(2, 5)):
                 magic_number = random.randint(1, len(users))
                 conversation.participants.add(users[magic_number])

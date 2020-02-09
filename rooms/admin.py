@@ -39,7 +39,7 @@ class RoomAdmin(admin.ModelAdmin):
             "Basic Info",
             {"fields": ("name", "description", "country", "city", "address", "price")},
         ),
-        ("Times", {"fields": ("check_in", "check_out", "instant_book")},),
+        ("Times", {"fields": ("check_in", "check_out", "instant_book",)},),
         ("Spaces", {"fields": ("guests", "beds", "bedrooms", "baths",)}),
         (
             "More About the Space",
@@ -108,6 +108,9 @@ class RoomAdmin(admin.ModelAdmin):
 
     def count_photos(self, obj):
         return obj.photos.count()
+
+    def superuser(self, obj):
+        return obj.host.superhost
 
     # 해당하는 column name 변경
     # count_amenities.short_description = "hello sexy!"

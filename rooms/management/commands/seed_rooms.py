@@ -45,8 +45,7 @@ class Command(BaseCommand):
         # ※ flatten(list(created_photo.values())) = [14]
         # flatten = iterable 가능한 객체 (list,tuple) 를 list 에 extend 시킴
         # iterable 한 객체가 아니면 list 에 append 시킴
-        amenities = room
-        _models.Amenity.objects.all()
+        amenities = room_models.Amenity.objects.all()
         facilities = room_models.Facility.objects.all()
         rules = room_models.HouseRule.objects.all()
         for pk in created_clean:

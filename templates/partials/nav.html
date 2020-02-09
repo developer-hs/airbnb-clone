@@ -5,6 +5,7 @@
     <a href="{% url "users:logout" %}">Log out</a>
     {% else %}
     <a href="{% url "users:login" %}">Login</a>
+    <a href="{% url "users:signup" %}">Sign up</a>
     {% endif %}
     </li>
 </ul>

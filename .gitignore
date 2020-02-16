@@ -132,4 +132,5 @@ uploads/
 old_views.py
 old_search.html
 old_forms.py
+old_signup.html
 node_modules/

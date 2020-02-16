@@ -21,6 +21,8 @@ class LoginForm(forms.Form):
             else:
                 # raise form.ValidationError("Password wrong!")
                 self.add_error("password", forms.ValidationError("Password is wrong"))
+                #              ↑ None 으로 바꿀경우
+                #              django template 에서 {{ form.non_field_errors }} 가 됨
         except models.User.DoesNotExist:
             self.add_error("email", forms.ValidationError("User does not exist"))
 
@@ -51,21 +53,31 @@ class SignUpForm(forms.ModelForm):
         # labels = {"email": ("Email")}
 
     # password 암호화를 위해 따로 생성
-    password1 = forms.CharField(
+    password = forms.CharField(
         widget=forms.PasswordInput(attrs={"placeholder": "Password"})
     )
-    password2 = forms.CharField(
+    password1 = forms.CharField(
         widget=forms.PasswordInput(attrs={"placeholder": "Confirm Password"})
     )
 
-    def clean_password1(self):
-        password1 = self.cleaned_data.get("password")
-        password2 = self.cleaned_data.get("password1")
+    def clean_email(self):
+        email = self.cleaned_data.get("email")
+        try:
+            models.User.objects.get(email=email)
+            raise forms.ValidationError(
+                " That email is already taken", code="existing_user"
+            )
+        except models.User.DoesNotExist:
+            return email
 
-        if password1 != password2:
+    def clean_password1(self):
+        password = self.cleaned_data.get("password")
+        password1 = self.cleaned_data.get("password1")
+
+        if password != password1:
             raise forms.ValidationError("Password confirmation does not math")
         else:
-            return password1
+            return password
 
     def save(self, *args, **kwargs):
         user = super().save(commit=False)

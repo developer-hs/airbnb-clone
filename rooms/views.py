@@ -1,9 +1,12 @@
-from django.views.generic import ListView, DetailView, View
-from django.shortcuts import redirect, Http404, render
+from django.views.generic import ListView, DetailView, View, UpdateView
+from django.shortcuts import redirect, Http404, render, reverse
 from django_countries import countries
 from django.core.paginator import Paginator
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from collections import Counter
 from . import models, forms
+from users import mixin as user_mixins
 
 # https://docs.djangoproject.com/en/3.0/ref/class-based-views/
 # ↑ CBV
@@ -131,3 +134,63 @@ def counter(models):
     for m in model:
         lst.append(m)
     return lst
+
+
+# https://ccbv.co.uk/projects/Django/3.0/django.views.generic.edit/UpdateView/
+# ↑ UpdateView ccbv.co.uk
+class EditRoomView(user_mixins.LoggedOnlyView, UpdateView):
+
+    model = models.Room
+    template_name = "rooms/room_edit.html"
+    fields = (
+        "name",
+        "description",
+        "country",
+        "city",
+        "price",
+        "address",
+        "guests",
+        "beds",
+        "bedrooms",
+        "baths",
+        "check_in",
+        "check_out",
+        "instant_book",
+        "room_type",
+        "amenities",
+        "facilitys",
+        "houserules",
+    )
+
+    def get_object(self, queryset=None):
+        room = super().get_object(queryset=queryset)
+        if room.host.pk != self.request.user.pk:
+            raise Http404()
+        return room
+
+
+class RoomPhotoView(user_mixins.LoggedOnlyView, DetailView):
+
+    model = models.Room
+    template_name = "rooms/room_photo.html"
+
+    def get_object(self, queryset=None):
+        room = super().get_object(queryset=queryset)
+        if room.host.pk != self.request.user.pk:
+            raise Http404()
+        return room
+
+
+@login_required
+def delete_photo(request, room_pk, photo_pk):
+    user = request.user
+    try:
+        room = models.Room.objects.get(pk=room_pk)
+        if room.host.pk != user.pk:
+            messages.error(request, "Cant delete taht photo")
+        else:
+            models.Photo.objects.filter(pk=photo_pk).delete()
+            messages.success(request, "Delete Photo !")
+        return redirect(reverse("rooms:photos", kwargs={"pk": room_pk}))
+    except models.Room.DoesNotExist:
+        return redirect(reverse("core:home"))

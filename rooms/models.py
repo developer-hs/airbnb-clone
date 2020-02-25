@@ -110,3 +110,7 @@ class Room(core_models.TimeStampdModel):
         (photo,) = self.photos.all()[:1]
         # ↑ array 에서 unpacking
         return photo.file.url
+
+    def get_next_four_photo(self):
+        photos = self.photos.all()[1:5]
+        return photos

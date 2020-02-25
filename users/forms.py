@@ -48,7 +48,9 @@ class SignUpForm(forms.ModelForm):
         widgets = {
             "first_name": forms.TextInput(attrs={"placeholder": "First Name"}),
             "last_name": forms.TextInput(attrs={"placeholder": "Last Name"}),
-            "email": forms.EmailInput(attrs={"placeholder": "Email"}),
+            "email": forms.EmailInput(
+                attrs={"placeholder": "Email", "required": "True"}
+            ),
         }
         # labels = {"email": ("Email")}
 

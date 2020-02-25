@@ -19,10 +19,57 @@
   @apply text-center rounded-sm py-5 text-lg font-bold w-full;
 }
 
-input {
-  @apply rounded-sm py-5 w-full text-left font-medium border border-gray-600 px-2;
+.btn-link {
+  @apply text-center py-3 rounded-lg text-lg font-bold w-full text-white bg-red-500;
+}
+
+input,
+textarea,
+select {
+  @apply rounded-sm py-3 w-full text-left font-medium border border-gray-600 px-2;
   &:hover {
     @apply outline-none border-teal-500;
+  }
+}
+
+textarea {
+  resize: none;
+  height: 100px;
+}
+
+select {
+  height: 50px;
+  background-color: #ecf0f1;
+  option {
+    background-color: white;
+    border-bottom: solid;
+    border-color: black;
+  }
+}
+
+.enlarge_img {
+  overflow: hidden;
+  transition: all 0.5s;
+  -webkit-transition: all 0.5s;
+  -o-transition: all 0.5s;
+  -moz-transition: all 0.5s;
+  @media screen and (max-width: 768px) {
+    &:hover {
+      background-size: 26rem;
+      background-position: -50px;
+    }
+  }
+  @media screen and (min-width: 769px) and (max-width: 1080px) {
+    &:hover {
+      background-size: 30rem;
+      background-position: 0.1px;
+    }
+  }
+  @media screen and (min-width: 1081px) {
+    &:hover {
+      background-size: 40rem;
+      background-position: 0.1px;
+    }
   }
 }
 
@@ -74,4 +121,9 @@ form {
     @apply bg-yellow-400;
   }
 }
+
+.border-section {
+  @apply border-b border-gray-400 pb-8 mt-8;
+}
+
 @tailwind utilities;

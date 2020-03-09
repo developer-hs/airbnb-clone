@@ -17,7 +17,6 @@ django-seed = "*"
 django-dotenv = "*"
 requests = "*"
 django-infinite-scroll-pagination = "*"
-pipenv-to-required = "*"
 pipenv-to-requirements = "*"
 
 [requires]

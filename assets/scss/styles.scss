@@ -55,19 +55,16 @@ select {
   -moz-transition: all 0.5s;
   @media screen and (max-width: 768px) {
     &:hover {
-      background-size: 26rem;
       background-position: -50px;
     }
   }
   @media screen and (min-width: 769px) and (max-width: 1080px) {
     &:hover {
-      background-size: 30rem;
       background-position: 0.1px;
     }
   }
   @media screen and (min-width: 1081px) {
     &:hover {
-      background-size: 40rem;
       background-position: 0.1px;
     }
   }
@@ -126,4 +123,10 @@ form {
   @apply border-b border-gray-400 pb-8 mt-8;
 }
 
+.cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-gap: 10px;
+  justify-items: center;
+}
 @tailwind utilities;

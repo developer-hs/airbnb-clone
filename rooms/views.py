@@ -1,9 +1,10 @@
-from django.views.generic import ListView, DetailView, View, UpdateView
-from django.shortcuts import redirect, Http404, render, reverse
+from django.views.generic import ListView, DetailView, View, UpdateView, FormView
+from django.shortcuts import redirect, Http404, render, reverse, reverse
 from django_countries import countries
 from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.contrib.messages.views import SuccessMessageMixin
 from collections import Counter
 from . import models, forms
 from users import mixin as user_mixins
@@ -65,7 +66,7 @@ class SearchView(View):
                 facilities = form.cleaned_data.get("facilities")
 
                 """                     lookup filtering                    """
-                # https://docs.djangoproject.com/en/3.0/ref/models/querysets/
+                # https://docs.djangoproject.com/en/3.0/ref/models/querysets/#gt
                 filter_args = {}
 
                 if city != "Anywhere":
@@ -194,3 +195,45 @@ def delete_photo(request, room_pk, photo_pk):
         return redirect(reverse("rooms:photos", kwargs={"pk": room_pk}))
     except models.Room.DoesNotExist:
         return redirect(reverse("core:home"))
+
+
+class EditPhotoView(user_mixins.LoggedOnlyView, SuccessMessageMixin, UpdateView):
+
+    model = models.Photo
+    template_name = "rooms/photo_edit.html"
+    pk_url_kwarg = "photo_pk"
+    success_message = "Photo Update"
+    fields = ("caption",)
+
+    def get_success_url(self):
+        room_pk = self.kwargs.get("room_pk")
+        return reverse("rooms:photos", kwargs={"pk": room_pk})
+
+
+class AddPhotoView(user_mixins.LoggedOnlyView, SuccessMessageMixin, FormView):
+
+    template_name = "rooms/photo_create.html"
+    form_class = forms.CreatePhotoForm
+
+    # form_valid 는 http response 를 return 해야함
+    def form_valid(self, form):
+        pk = self.kwargs.get("pk")
+        # form 으로 room_pk 를 넘겨줌(form 에서 save 를 override 해야함)
+        form.save(pk)
+        messages.success(self.request, "Photo Upload")
+        return redirect(reverse("rooms:photos", kwargs={"pk": pk}))
+
+
+class CreateRoomView(user_mixins.LoggedOnlyView, FormView):
+    form_class = forms.CreateRoomForm
+    template_name = "rooms/room_create.html"
+
+    def form_valid(self, form):
+        room = form.save()
+        room.host = self.request.user
+        room.save()
+        form.save_m2m()  # 사용이유: ManyToMany Feild 는 object 가
+        # data base 에 생성되지 않았으면 저장되지않는다
+        messages.success(self.request, "Create Room")
+        return redirect(reverse("rooms:detail", kwargs={"pk": room.pk}))
+

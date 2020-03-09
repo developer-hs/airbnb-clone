@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% load i18n %}
 {% block page_title %} Home {% endblock page_title %}
 
 {% block content %}
@@ -25,7 +25,11 @@
       <i class="fas fa-arrow-left fa-lg"></i></a>
     {% endif %}
   
-    <span class="mx-3 font-medium text-lg">{{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+    <span class="mx-3 font-medium text-lg">
+      <!-- blocktrans 안에서는 해당값을 지정 해주지 않으면
+          외부의 object를 받아올 수 없다 -->
+      {% blocktrans with current_page=page_obj.number total_pages=page_obj.paginator.num_pages %}Page {{current_page}} of {{total_pages}}{% endblocktrans %}
+    </span>
   
     {% if page_obj.has_next %}
     <a href="?page={{page_obj.next_page_number}}" class="text-teal-500 mt-1">

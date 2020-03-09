@@ -22,6 +22,10 @@ urlpatterns = [
     path("", include("core.urls"), name="core"),
     path("rooms/", include("rooms.urls"), name="rooms"),
     path("users/", include("users.urls"), name="users"),
+    path("reservations/", include("reservations.urls"), name="users"),
+    path("reviews/", include("reviews.urls"), name="reviews"),
+    path("lists/", include("lists.urls"), name="lists"),
+    path("conversations/", include("conversation.urls"), name="conversations"),
     path("admin/", admin.site.urls),
 ]
 

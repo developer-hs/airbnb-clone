@@ -134,3 +134,8 @@ old_search.html
 old_forms.py
 old_signup.html
 node_modules/
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml

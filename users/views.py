@@ -1,14 +1,16 @@
 import os
 import requests
+from django.utils import translation
 from django.views import View
 from django.views.generic import FormView, DetailView, UpdateView
 from django.contrib.auth.views import PasswordChangeView
 from django.shortcuts import render, redirect, reverse
 from django.urls import reverse_lazy
 from django.contrib.auth import authenticate, login, logout
-from django.template import RequestContext, Template
-from django.http import HttpResponse
+from django.template import RequestContext, Template, Context
+from django.http import HttpResponse, HttpRequest
 from django.core.files.base import ContentFile
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
@@ -317,3 +319,44 @@ class UpdatePasswordView(
 
     def get_success_url(self):
         return self.request.user.get_absolute_url()
+
+
+# https://docs.djangoproject.com/en/3.0/topics/http/sessions/#examples
+# ↑ session django documentation
+
+""" @login_required
+def start_hosting(request):
+    request.session["is_hosting"] = True
+    return redirect(reverse("core:home"))
+
+
+def stop_hosting(request):
+    try:
+        del request.session["member_id"]
+    except KeyError:
+        pass
+    return HttpResponse("You're logged out.")
+
+    return redirect(reverse("core:home"))
+     """
+
+
+def switch_hosting(request):
+    referer = request.META.get("HTTP_REFERER")
+    try:
+        del request.session["is_hosting"]
+    except KeyError:
+        request.session["is_hosting"] = True
+    return redirect(referer)
+
+
+def switch_language(request):
+    lang = request.GET.get("lang", None)
+    if lang is not None:
+        request.session[translation.LANGUAGE_SESSION_KEY] = lang
+    return HttpResponse(status=200)
+    # settings.py middleware 에 LocaleMiddleware 삽입
+    # request.session 안에 translation.LANGUAGE_SESSION_KEY(_'language')
+    # 를 가져와서 해당값으로 번역
+    # https://docs.djangoproject.com/en/3.0/topics/i18n/translation/#other-tags
+    # ↑ templates 에 {% get_current_language as LANGUAGE_CODE %} 적용

@@ -56,7 +56,7 @@ THIRD_PARTY_APPS = [
     "django_seed",
 ]
 
-INSTALLED_APPS = DJANGO_APPS + PROJECT_APPS
+INSTALLED_APPS = DJANGO_APPS + PROJECT_APPS + THIRD_PARTY_APPS
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -66,6 +66,8 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    # https://docs.djangoproject.com/en/2.2/_modules/django/middleware/locale/
+    "django.middleware.locale.LocaleMiddleware",
 ]
 
 ROOT_URLCONF = "config.urls"
@@ -154,4 +156,15 @@ EMAIL_HOST_PASSWORD = os.environ.get("MAILGUN_PASSWORD")
 
 EMAIL_FROM = "sexy-guy@sandbox3462f99ac5814b99ba98e1b70b54aac8.mailgun.org"
 
+# Auth
+
 LOGIN_URL = "/users/login"
+
+# Locale
+# https://docs.djangoproject.com/en/3.0/ref/django-admin/#makemessages
+# https://docs.djangoproject.com/en/3.0/ref/django-admin/#django-admin-compilemessages
+# 1. django-admin makemessages --locale="language"(kr,es...)
+# 2. django-admin compilemessages
+
+LOCALE_PATHS = (os.path.join(BASE_DIR, "locale"),)
+

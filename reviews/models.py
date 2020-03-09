@@ -1,18 +1,30 @@
 from django.db import models
+from django.core.validators import MinValueValidator, MaxValueValidator
 from core import models as core_models
 
-
+# https://docs.djangoproject.com/en/3.0/ref/validators/#maxvaluevalidator
+# ↑ validator - django documentation
 class Review(core_models.TimeStampdModel):
 
     """ Review Model Difinition """
 
     reviews = models.TextField()
-    Check_in = models.IntegerField()
-    Accuracy = models.IntegerField()
-    Location = models.IntegerField()
-    Cleanliness = models.IntegerField()
-    Value = models.IntegerField()
-    Communication = models.IntegerField()
+    Check_in = models.IntegerField(
+        validators=[MinValueValidator(1), MaxValueValidator(5)]
+    )
+    Accuracy = models.IntegerField(
+        validators=[MinValueValidator(1), MaxValueValidator(5)]
+    )
+    Location = models.IntegerField(
+        validators=[MinValueValidator(1), MaxValueValidator(5)]
+    )
+    Cleanliness = models.IntegerField(
+        validators=[MinValueValidator(1), MaxValueValidator(5)]
+    )
+    Value = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
+    Communication = models.IntegerField(
+        validators=[MinValueValidator(1), MaxValueValidator(5)]
+    )
     user = models.ForeignKey(
         "users.User", related_name="reviews", on_delete=models.CASCADE
     )
@@ -35,3 +47,7 @@ class Review(core_models.TimeStampdModel):
         return round(avg, 2)
 
     rating_average.short_description = "Avg."
+
+    class Meta:
+        ordering = ("-created",)
+

@@ -8,6 +8,7 @@ class MessageAdmin(admin.ModelAdmin):
     """ Message Admin Deifinition """
 
     list_display = ("__str__", "created")
+    raw_id_fields = ("user",)
 
 
 @admin.register(models.Conversation)

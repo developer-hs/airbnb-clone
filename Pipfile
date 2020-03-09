@@ -18,6 +18,7 @@ sentry-sdk = "==0.13.2"
 django-storages = "*"
 django-infinite-scroll-pagination = "*"
 awsebcli = "*"
+psycopg2 = "*"
 
 [requires]
 python_version = "3.8"

@@ -55,3 +55,4 @@ v==0.0.0
 virtualenv==20.0.9
 virtualenv-clone==0.5.3
 wcwidth==0.1.8
+psycopg2==2.8

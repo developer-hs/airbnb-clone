@@ -11,5 +11,4 @@ pylint==2.4.4
 six==1.14.0
 virtualenv==16.7.9
 virtualenv-clone==0.5.3
-psycopg==2.8.4
 wrapt==1.11.2

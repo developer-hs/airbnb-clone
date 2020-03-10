@@ -1,7 +1,6 @@
 appdirs==1.4.3
 attrs==19.3.0
 autopep8==1.5
-awsebcli==3.17.1
 black==19.10b0
 botocore==1.14.17
 cement==2.8.2

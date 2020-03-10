@@ -17,6 +17,7 @@ requests = "*"
 sentry-sdk = "==0.13.2"
 django-storages = "*"
 django-infinite-scroll-pagination = "*"
+awsebcli = "*"
 
 [requires]
 python_version = "3.8"

@@ -18,6 +18,11 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
+
+def trigger_error(request):
+    division_by_zero = 1 / 0
+
+
 urlpatterns = [
     path("", include("core.urls"), name="core"),
     path("rooms/", include("rooms.urls"), name="rooms"),
@@ -27,6 +32,7 @@ urlpatterns = [
     path("lists/", include("lists.urls"), name="lists"),
     path("conversations/", include("conversation.urls"), name="conversations"),
     path("admin/", admin.site.urls),
+    path("sentry-debug/", trigger_error),
 ]
 
 # 1번째 인자는 File_URL 2번쨰 인자는 File 저장 폴더

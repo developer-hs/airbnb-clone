@@ -81,7 +81,7 @@ def complate_verifycation(request, key):
         user.email_secret = ""
         user.save()
         # to do : add succes message
-    except models.User.DoseNotExsist:
+    except models.User.DoesNotExist:
         # to do : add error massage
         pass
     return redirect(reverse("core:home"))

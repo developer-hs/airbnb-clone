@@ -25,7 +25,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.environ.get("DJANGO_SECRET", "?wug5qldrE5lnuswiyeR")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = os.environ.get("DEBUG") == "True"
 
 ALLOWED_HOSTS = [".elasticbeanstalk.com", "localhost"]
 
@@ -187,6 +187,7 @@ if not DEBUG:
     sentry_sdk.init(
         dsn=os.environ.get("SENTRY_URL"),
         integrations=[DjangoIntegration()],
-        send_default_pii=True,  # 어떠한 user 가 error 를 겪었을 때 보여줌
+        send_default_pii=True,  # user 가 error 를 겪었을 때
+        # https://sentry.io/ issues 에 보여줌
     )
 

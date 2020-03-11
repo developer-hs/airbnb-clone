@@ -180,17 +180,17 @@ LOCALE_PATHS = (os.path.join(BASE_DIR, "locale"),)
 
 # Sentry
 
-DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
-STATICFILES_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
-AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
-AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECERET_ACCESS_KEY")
-AWS_STORAGE_BUCKET_NAME = "airbnb-clone-rlagudtjq"
-AWS_AUTO_CREATE_BUCKET = True
-AWS_BUCKET_ACL = "public-read"
+
 if not DEBUG:
     # https://django-storages.readthedocs.io/en/latest/backends/amazon-S3.html
     # django-storages s3
-
+    DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+    STATICFILES_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+    AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
+    AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECERET_ACCESS_KEY")
+    AWS_STORAGE_BUCKET_NAME = "airbnb-clone-rlagudtjq"
+    AWS_AUTO_CREATE_BUCKET = True
+    AWS_BUCKET_ACL = "public-read"
     sentry_sdk.init(
         dsn=os.environ.get("SENTRY_URL"),
         integrations=[DjangoIntegration()],

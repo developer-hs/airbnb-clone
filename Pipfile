@@ -20,6 +20,7 @@ django-infinite-scroll-pagination = "*"
 awsebcli = "*"
 boto3 = "*"
 botocore = "*"
+psycopg2 = "*"
 
 [requires]
 python_version = "3.8"

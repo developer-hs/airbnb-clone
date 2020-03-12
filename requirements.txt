@@ -1,4 +1,4 @@
-botocore==1.15.18
+botocore==1.4.4
 certifi==2019.9.11
 chardet==3.0.4
 django-countries==5.5

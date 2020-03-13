@@ -17,10 +17,10 @@ requests = "*"
 sentry-sdk = "==0.13.2"
 django-storages = "*"
 django-infinite-scroll-pagination = "*"
-awsebcli = "*"
 psycopg2 = "*"
-boto3 = "==1.10.26"
-botocore = "==1.13.26"
+awsebcli = "*"
+botocore = "*"
+boto3 = "*"
 
 [requires]
 python_version = "3.8"

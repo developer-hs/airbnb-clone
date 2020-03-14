@@ -143,7 +143,7 @@ USE_TZ = True
 
 STATIC_URL = "/static/"  # url
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]  # 폴더이름
-STATIC_ROOT = os.path.join(BASE_DIR, "static")
+STATIC_ROOT = os.path.join(BASE_DIR, ".static_file")
 # User 커스텀
 AUTH_USER_MODEL = "users.User"
 

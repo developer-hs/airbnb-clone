@@ -144,6 +144,7 @@ USE_TZ = True
 
 STATIC_URL = "/static/"  # url
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]  # 폴더이름
+
 # User 커스텀
 AUTH_USER_MODEL = "users.User"
 
@@ -180,17 +181,16 @@ LOCALE_PATHS = (os.path.join(BASE_DIR, "locale"),)
 
 # Sentry
 
-DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
-STATICFILES_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
-AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
-AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")
-AWS_STORAGE_BUCKET_NAME = "airbnb-clone-rlagudtjq"
-AWS_AUTO_CREATE_BUCKET = True
 
 if not DEBUG:
     # https://django-storages.readthedocs.io/en/latest/backends/amazon-S3.html
     # django-storages s3
-
+    DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+    STATICFILES_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+    AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
+    AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")
+    AWS_STORAGE_BUCKET_NAME = "airbnb-clone-rlagudtjq"
+    AWS_AUTO_CREATE_BUCKET = True
     sentry_sdk.init(
         dsn=os.environ.get("SENTRY_URL"),
         integrations=[DjangoIntegration()],

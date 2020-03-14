@@ -17,9 +17,8 @@ requests = "*"
 sentry-sdk = "==0.13.2"
 django-storages = "*"
 django-infinite-scroll-pagination = "*"
-psycopg2 = "*"
 awsebcli = "*"
-botocore = "*"
+psycopg2 = "*"
 boto3 = "*"
 
 [requires]

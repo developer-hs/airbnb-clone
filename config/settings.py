@@ -143,7 +143,6 @@ USE_TZ = True
 
 STATIC_URL = "/static/"  # url
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]  # 폴더이름
-STATIC_ROOT = os.path.join(BASE_DIR, ".static_file")
 # User 커스텀
 AUTH_USER_MODEL = "users.User"
 
@@ -188,7 +187,7 @@ if not DEBUG:
     STATICFILES_STORAGE = "config.custom_storages.StaticStorage"
     AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
     AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")
-    AWS_STORAGE_BUCKET_NAME = "airbnb-clone-nomadcoders"
+    AWS_STORAGE_BUCKET_NAME = "airbnb-clone-rlagudtjq"
     AWS_AUTO_CREATE_BUCKET = True
     AWS_BUCKET_ACL = "public-read"
     AWS_S3_OBJECT_PARAMETERS = {"CacheControl": "max-age=86400"}

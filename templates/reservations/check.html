@@ -8,13 +8,16 @@
 {% endblock serach-bar %}
 
 {% block content %}
-<div class="container mx-auto my-10 flex flex-col items-center border p-6 border-gray-400">
-    <div class=" text-center pb-5 border-b w-full font-bold text-2xl"> Reservaiton </div>
-    <div class="flex justify-end font-bold md:text-right w-2/3">
-        <div class="mr-2">Check In</div>
-        <div class="mr-20">Check Out</div>
-        <div class="mr-12">Status</div>
-    </div>
+
+    {% if reservations %}
+    <div class="container mx-auto my-10 flex flex-col items-center border p-6 border-gray-400">
+        <div class=" text-center pb-5 border-b w-full font-bold text-2xl"> Reservaiton </div>
+        <div class="flex justify-end font-bold md:text-right w-2/3">
+            <div class="mr-2">Check In</div>
+            <div class="mr-20">Check Out</div>
+            <div class="mr-12">Status</div>
+        </div>
+    {% endif %}
     {% for reservation in reservations %}
     <div class="flex self-start w-full mb-3 border-t">
         <a href = "{% url 'rooms:detail' reservation.room.pk %}" class="w-64 h-24 bg-cover bg-center rounded-lg mr-5"  style="background-image:url({{reservation.room.first_photo}})"></a>

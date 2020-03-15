@@ -1,4 +1,11 @@
-from django.views.generic import ListView, DetailView, View, UpdateView, FormView
+from django.views.generic import (
+    ListView,
+    DetailView,
+    View,
+    UpdateView,
+    FormView,
+    TemplateView,
+)
 from django.shortcuts import redirect, Http404, render, reverse, reverse
 from django_countries import countries
 from django.core.paginator import Paginator
@@ -237,3 +244,6 @@ class CreateRoomView(user_mixins.LoggedOnlyView, FormView):
         messages.success(self.request, "Create Room")
         return redirect(reverse("rooms:detail", kwargs={"pk": room.pk}))
 
+
+class TestView(TemplateView):
+    template_name = "rooms/test.html"

@@ -22,4 +22,5 @@ urlpatterns = [
         name="edit_photo",
     ),
     path("search/", views.SearchView.as_view(), name="search"),
+    path("test/", views.TestView.as_view(), name="test"),
 ]

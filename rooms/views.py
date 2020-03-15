@@ -42,7 +42,7 @@ class HomeView(ListView):
             return redirect("/")
 
 
-class RoomDetail(DetailView):
+class TestView(DetailView):
 
     """ RoomDetail Definition """
 
@@ -244,6 +244,3 @@ class CreateRoomView(user_mixins.LoggedOnlyView, FormView):
         messages.success(self.request, "Create Room")
         return redirect(reverse("rooms:detail", kwargs={"pk": room.pk}))
 
-
-class TestView(TemplateView):
-    template_name = "rooms/test.html"

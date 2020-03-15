@@ -1,7 +1,7 @@
-<form method ="POST" class="w-full" enctype="multipart/form-data">
+<form method="POST" class="w-full" enctype="multipart/form-data">
     <!-- action 을 지정하지않으면 현재페이지에서 post 를 보냄
          고로, action = user:signup 할 필요없음 -->
-    {% csrf_token %}
+         {% csrf_token %}
 
     <!-- https://docs.djangoproject.com/en/3.0/topics/forms/#looping-over-the-form-s-fields
          
@@ -10,12 +10,13 @@
 
     {% if form.non_field_errors %}
         {% for error in form.non_field_errors %}
-            <span class="text-red-700 font-medium text-sm">{{ error }}</span>
+            <span class="text-red-700 font-medium text-sm">{{error}}</span> 
         {% endfor %}
     {% endif %}
+    
     {% for field in form %}
-        {% include 'mixins/room/room_input.html ' %}
+        {% include 'mixins/room/room_input.html' with field=field %}
     {% endfor %}
-
+    
     <button class="btn bg-red-500 text-white">{{cta}}</button>
 </form>
